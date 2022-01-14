@@ -49,8 +49,8 @@ export class KirishimaCollection<K, V> extends Map<K, V> {
 	public first(amount: number): Promise<V[]>;
 	public first(amount?: number): Promise<V | V[] | undefined> {
 		return new Promise((resolve) => {
-			if (typeof amount === 'undefined') return this.values().next().value;
-			if (amount < 0) return this.last(amount * -1);
+			if (typeof amount === 'undefined') return resolve(this.values().next().value);
+			if (amount < 0) return resolve(this.last(amount * -1));
 			amount = Math.min(this.size, amount);
 			const iter = this.values();
 			return resolve(Array.from({ length: amount }, (): V => iter.next().value));
